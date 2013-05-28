@@ -1,6 +1,0 @@
-Latency is the main bottleneck
-- each connection is kinda slow
-- lots of small files are transfered, delays add up
-
-bit.ly/fluent-hpbn
-Optimises TCP networks
