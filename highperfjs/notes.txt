@@ -1,0 +1,89 @@
+Latency is the main bottleneck
+- each connection is kinda slow
+- lots of small files are transfered, delays add up
+
+bit.ly/fluent-hpbn
+        Optimises TCP networks
+
+prefetch as much data as possible
+
+upgrade linux kernels (3.2+)
+upgrade TLS libraries, session cacvhing
+concatenate files, sprite small images
+cache assets
+
+http 2.0 lets you undo http 1.x hacks
+(can unconcatenate files)
+
+CWND=10 (server optimisation)
+
+chrome console -> performance.timing, microsecond timing of http requests
+
+server can opt into SPDY and if the browser doesn't support it then it falls
+back to HTTP 1 during the initial TLS handshake without any penalty
+
+---
+
+DOM tree
+CSS Object Model tree
+
+Two trees are combined to make Render Tree
+
+Stream the HTML response to the client ASAP
+get CSS to client as fast as possible
+- Must have CSS before rendering can begin
+
+async keyword on script tags
+<script src="foo" async>
+
+load js below content, inline stylesheet above the fold
+function run_after_load() {
+         Load('stylesheet', 'foo.css');
+         Load('javascript', 'foo.js')
+}
+
+Chrome performance audit, can determine css that is not being used
+google pagespeed insights, highlight critical path
+
+aggregate events and defer them until the next requestAnimationFrame callback
+split functions across multiple callbacks
+
+Structural & sampling profiliers
+structural => chrome://tracing
+console.time("A")
+...
+console.timeEnd("A")
+
+GC
+look at Memory in timeline
+CMD-E
+use incognito when progiling memory
+
+developers.google.com/speed/pagespeed/insights
+goo.gl/dtRl8 (memory leaks)
+
+timeline, hover over layout, can see nodes that need layout (needs canary)
+
+every DOM manipulation causes a new layout. except if you force a synchronus layout.
+
+in layout
+green -> rendering tiles
+gold -> independent layers
+Red -> repainted area
+
+igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
+
+enable continuous page repainting (canary)
+Allows you to examine expensive pixels
+can hide 'h' while targetting an element to hide it
+console.timeStamp("message") -> adds annotations to timeline
+enable usb debugging in canary to profile mobile performance(chrome://inspect on canary)
+
+expires header, eTags
+caching header
+
+use jpegs, not PNG's if possible. 
+
+pagespeed plugin optimises images, gives them to you in the browser. Can download and save
+
+bit.ly/fluent-perfshop (slides)
